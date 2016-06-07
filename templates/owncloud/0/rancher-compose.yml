@@ -1,0 +1,19 @@
+.catalog:
+  name: "Owncloud"
+  version: "v0.1"
+  description: "Library service powered by Owncloud"
+  uuid: owncloud-airtonix-0
+  minimum_rancher_version: v0.51.0
+  questions:
+    - variable: 'MYSQL_ROOT_PASSWORD' # A single word that is used to pair the question and answer.
+      label: 'Mysql Root Password' # The "question" to be answered.
+      description: 'MYSQL_ROOT_PASSWORD' # The description of the question to show the user how to answer the question.
+      default: 'password' # (Optional) A default value that will be pre-populated into the UI
+      required: true # (Optional) Whether or not an answer is required. By default, it's considered `false`.
+      type: 'string' # How the questions are formatted and types of response expected
+
+owncloud:
+  scale: 1
+
+db:
+  scale: 1
