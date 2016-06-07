@@ -1,5 +1,5 @@
 owncloud:
-  image: owncloud
+  image: owncloud:9.0.2-apache
   ports:
    - "80:80"
   links:
@@ -9,3 +9,18 @@ db:
   image: mariadb
   environment:
     - MYSQL_ROOT_PASSWORD=password
+
+data_apps:
+  image: busybox
+  volumes:
+    - /var/www/html/apps
+
+data_config:
+  image: busybox
+  volumes:
+    - /var/www/html/config
+
+data_store:
+  image: busybox
+  volumes:
+    - /var/www/html/data
