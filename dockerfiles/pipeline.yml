@@ -12,12 +12,12 @@ resources:
     uri: git@github.com:airtonix/rancher-catalog.git
     initial_version: "0.0.1"
     branch: version
-    file: {{IMAGE_NAME}}
+    file: {{semver-version-file}}
     private_key: {{github-private-key}}
 - name: hub
   type: docker-image
   source:
-    repository: registry.thelma.lan/{{IMAGE_NAME}}
+    repository: {{docker-repository}}
     insecure_registries: ["registry.thelma.lan"]
 
 jobs:
@@ -31,8 +31,8 @@ jobs:
     trigger: true
   - put: hub
     params:
-      build: repo/dockerfiles/{{IMAGE_NAME}}
-      tag: version/{{IMAGE_NAME}}
+      build: {{hub-docker-file}}
+      tag: {{hub-tag-file}}
       tag_as_latest: true
 
 - name: bump
@@ -43,4 +43,4 @@ jobs:
     passed: [build]
   - put: version
     params:
-      file: version/{{IMAGE_NAME}}
+      file: {{semver-version-putfile}}

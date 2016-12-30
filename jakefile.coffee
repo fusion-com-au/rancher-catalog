@@ -28,7 +28,11 @@ task 'sync', () ->
 		"--config ./dockerfiles/pipeline.yml"
 		"--pipeline #{getPipelineName()}"
 		'--non-interactive'
-		"--var IMAGE_NAME=#{getImageName()}"
+		"--var semver-version-putfile=version/#{getImageName()}.version"
+		"--var semver-version-file=#{getImageName()}.version"
+		"--var hub-tag-file=version/#{getImageName()}.version"
+		"--var hub-docker-file=repo/dockerfiles/#{getImageName()}"
+		"--var docker-repository=registry.thelma.lan/#{getImageName()}"
 		"--load-vars-from #{process.env.HOME}/.concourse/worker.yml"
 	].join(' ')
 	jake.logger.log(cmd)
