@@ -5,7 +5,8 @@
 
 {SECRETS_HOME} = process.env;
 
-getPipelineName = -> "rancher-catalog__#{process.env.image_name}"
+getImageName = -> process.env.image_name
+getPipelineName = -> "rancher-catalog__#{getImageName()}"
 
 task 'login', () ->
 	cmd = [
@@ -23,9 +24,10 @@ task 'sync', () ->
 	cmd = [
 		'fly set-pipeline'
 		'--target main'
-		"--config ./dockerfiles/#{process.env.image_name}/pipeline.yml"
+		"--config ./dockerfiles/pipeline.yml"
 		"--pipeline #{getPipelineName()}"
 		'--non-interactive'
+		"--var image_name=#{getImageName()}"
 		"--load-vars-from #{process.env.HOME}/.concourse/worker.yml"
 	].join(' ')
 

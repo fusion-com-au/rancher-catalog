@@ -12,12 +12,12 @@ resources:
     uri: git@github.com:airtonix/rancher-catalog.git
     initial_version: "0.0.1"
     branch: version
-    file: docker-files/concourse-certs/version
+    file: docker-files/{{image_name}}/version
     private_key: {{github-private-key}}
 - name: hub
   type: docker-image
   source:
-    repository: registry.thelma.lan/concourse-certs-store
+    repository: registry.thelma.lan/{{image_name}}
     insecure_registries: ["registry.thelma.lan"]
 
 jobs:
@@ -31,7 +31,7 @@ jobs:
     trigger: true
   - put: hub
     params:
-      build: repo
+      build: repo/dockerfiles/{{image_name}}
       tag: version/version
       tag_as_latest: true
 
