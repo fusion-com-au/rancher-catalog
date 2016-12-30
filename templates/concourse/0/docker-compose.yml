@@ -1,5 +1,8 @@
 version: '2'
 services:
+  certs:
+    image: registry.thelma.lan/concourse-certs:latest
+
   db:
     image: postgres:9.5
     environment:
@@ -18,9 +21,12 @@ services:
     expose:
     -  "2222"
     -  "8080"
-    volumes:
-    - "{{CONCOURSE_STORAGE_PATH}}/web:/concourse-keys"
+    volumes_from:
+    - certs
     environment:
+      CONCOURSE_SESSION_SIGNING_KEY: /concourse-certs/web/session_signing_key
+      CONCOURSE_TSA_HOST_KEY: /concourse-certs/web/tsa_host_key
+      CONCOURSE_TSA_AUTHORIZED_KEYS: /concourse-certs/web/tsa-authorized-keys
       CONCOURSE_BASIC_AUTH_USERNAME: {{CONCOURSE_BASICAUTH_ADMIN_USERNAME}}
       CONCOURSE_BASIC_AUTH_PASSWORD: {{CONCOURSE_BASICAUTH_ADMIN_PASSWORD}}
       CONCOURSE_EXTERNAL_URL: "{{CONCOURSE_EXTERNAL_URL}}"
@@ -32,8 +38,10 @@ services:
     privileged: true
     links:
     - web
+    volumes_from:
+    - certs
     command: worker
-    volumes:
-    - {{CONCOURSE_STORAGE_PATH}}/worker:/concourse-keys"
     environment:
       CONCOURSE_TSA_HOST: web
+      CONCOURSE_TSA_PUBLIC_KEY: /concourse-certs/worker/tsa_host_key.pub
+      CONCOURSE_WORKER_PRIVATE_KEY: /concourse-certs/worker/worker_key
