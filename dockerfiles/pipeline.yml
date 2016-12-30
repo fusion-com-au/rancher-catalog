@@ -12,7 +12,7 @@ resources:
     uri: git@github.com:airtonix/rancher-catalog.git
     initial_version: "0.0.1"
     branch: version
-    file: docker-files/{{image_name}}/version
+    file: {{image_name}}.semver
     private_key: {{github-private-key}}
 - name: hub
   type: docker-image
@@ -32,7 +32,7 @@ jobs:
   - put: hub
     params:
       build: repo/dockerfiles/{{image_name}}
-      tag: version/version
+      tag: version/{{image_name}}.semver
       tag_as_latest: true
 
 - name: bump
@@ -42,4 +42,4 @@ jobs:
   - get: version
     passed: [build]
   - put: version
-    params: {file: version/version}
+    params: {file: version/{{image_name}}.semver}
