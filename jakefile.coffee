@@ -16,6 +16,7 @@ task 'login', () ->
 		"--password #{process.env.CONCOURSE_PASSWORD}"
 	].join(' ')
 
+	jake.logger.log(cmd)
 	jake.exec cmd, {printStdout: true, interactive: true}, () ->
 		console.log('done')
 		complete()
@@ -27,10 +28,10 @@ task 'sync', () ->
 		"--config ./dockerfiles/pipeline.yml"
 		"--pipeline #{getPipelineName()}"
 		'--non-interactive'
-		"--var image_name=#{getImageName()}"
+		"--var IMAGE_NAME=#{getImageName()}"
 		"--load-vars-from #{process.env.HOME}/.concourse/worker.yml"
 	].join(' ')
-
+	jake.logger.log(cmd)
 	jake.exec cmd, {printStdout: true}, () ->
 		console.log('done')
 		complete()
@@ -41,6 +42,7 @@ task 'unpause', () ->
 		'--target main'
 		"--pipeline #{getPipelineName()}"
 	].join(' ')
+	jake.logger.log(cmd)
 	jake.exec cmd, {printStdout: true}, () ->
 		console.log('done')
 		complete()
@@ -51,6 +53,7 @@ task 'trigger', (job) ->
 		'--target main'
 		"--job #{getPipelineName()}/build"
 	].join(' ')
+	jake.logger.log(cmd)
 	jake.exec cmd, {printStdout: true}, () ->
 		console.log('done')
 		complete()
