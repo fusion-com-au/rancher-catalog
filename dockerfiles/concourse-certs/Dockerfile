@@ -2,7 +2,6 @@ FROM alpine
 
 RUN apk add --update \
 		openssh-client && \
-		openssl-dev && \
 	rm -rf /var/cache/apk/*
 
 VOLUME ["/data"]
