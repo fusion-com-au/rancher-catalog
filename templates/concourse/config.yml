@@ -1,0 +1,7 @@
+name: Concourse
+description:
+version: 0.0.1
+category: CI
+maintainer: Zenobius Jiricek <airtonix@gmail.com>
+license: MIT
+projectURL: github.com/airtonix/rancher-catalog
