@@ -42,6 +42,7 @@ jobs:
   serial: true
   plan:
   - get: hub
+    passed: [build]
     trigger: true
   - get: version
     passed: [build]

@@ -9,6 +9,5 @@ RUN mkdir -p /data/web && \
 	mkdir /data/worker
 
 ADD ./entrypoint.sh /
-
-ENTRYPOINT ["/entrypoint.d"]
-CMD ["generate"]
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
