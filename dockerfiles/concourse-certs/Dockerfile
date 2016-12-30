@@ -1,15 +1,14 @@
 FROM alpine
+MAINTAINER Zenobius Jiricek <airtonix@gmail.com>
 
 RUN apk add --update \
 		openssh-client && \
 	rm -rf /var/cache/apk/*
 
 RUN mkdir -p /data/web && \
-	mkdir /data/worker && \
-	ls -al /data
+	mkdir /data/worker
 
-RUN ssh-keygen -t rsa -f /data/web/tsa_host_key -N '' && \
-	ssh-keygen -t rsa -f /data/web/session_signing_key -N '' && \
-	ssh-keygen -t rsa -f /data/worker/worker_key -N '' && \
-	cp /data/worker/worker_key.pub /data/web/authorized_worker_keys && \
-	cp /data/web/tsa_host_key.pub /data/worker/
+ADD ./entrypoint.sh /
+
+ENTRYPOINT ["/entrypoint.d"]
+CMD ["generate"]

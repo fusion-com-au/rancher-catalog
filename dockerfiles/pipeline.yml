@@ -48,4 +48,3 @@ jobs:
   - put: version
     params:
       bump: patch
-      file: {{semver-version-putfile}}
