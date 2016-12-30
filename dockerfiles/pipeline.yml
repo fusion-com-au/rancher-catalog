@@ -25,22 +25,27 @@ jobs:
   public: true
   serial: true
   plan:
-  - get: version
-    trigger: true
   - get: repo
     trigger: true
+  - get: version
+    params:
+      bump: patch
+      file: {{semver-version-file}}
   - put: hub
     params:
       build: {{hub-docker-file}}
-      tag: {{hub-tag-file}}
+      tag: version/version
       tag_as_latest: true
 
 - name: bump
   public: true
   serial: true
   plan:
+  - get: hub
+    trigger: true
   - get: version
     passed: [build]
   - put: version
     params:
+      bump: patch
       file: {{semver-version-putfile}}
