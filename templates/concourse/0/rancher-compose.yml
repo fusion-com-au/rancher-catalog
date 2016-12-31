@@ -2,8 +2,8 @@
   name: "Concourse" # Name of the versioned template of the Catalog Entry
   version: "v0.0.1" # Version of the versioned template of the Catalog Entry
   description: "Continous integration and delivery orchestrator"
-  uuid: concourse-airtonix-0
-  minimum_rancher_version: v0.51.0
+  uuid: 'concourse-airtonix-0'
+  minimum_rancher_version: 'v0.51.0'
   questions:
 
     - variable: 'CONCOURSE_EXTERNAL_URL'
