@@ -1,8 +1,7 @@
 version: "2"
 services:
   certs:
-    image: airtonix/concourse-certs:latest
-    command: /bin/true
+    image: airtonix/concourse-certs
 
   db:
     image: postgres:9.5
@@ -16,14 +15,14 @@ services:
     image: concourse/concourse
     command: web
     links:
-    - db
+      - db
     ports:
-    - "${CONCOURSE_SSH_PORT}:2222"
+      - "${CONCOURSE_SSH_PORT}:2222"
     expose:
-    -  "2222"
-    -  "8080"
+      -  "2222"
+      -  "8080"
     volumes_from:
-    - certs
+      - certs
     environment:
       CONCOURSE_SESSION_SIGNING_KEY: /concourse-certs/web/session_signing_key
       CONCOURSE_TSA_HOST_KEY: /concourse-certs/web/tsa_host_key
@@ -32,15 +31,15 @@ services:
       CONCOURSE_BASIC_AUTH_PASSWORD: ${CONCOURSE_BASICAUTH_ADMIN_PASSWORD}
       CONCOURSE_EXTERNAL_URL: "${CONCOURSE_EXTERNAL_URL}"
       CONCOURSE_POSTGRES_DATA_SOURCE: |-
-        postgres://${CONCOURSE_DB_USERNAME}}:${CONCOURSE_DB_PASSWORD}@db:5432/concourse?sslmode=disable
+        postgres://${CONCOURSE_DB_USERNAME}:${CONCOURSE_DB_PASSWORD}@db:5432/concourse?sslmode=disable
 
   worker:
     image: concourse/concourse
     privileged: true
     links:
-    - web
+      - web
     volumes_from:
-    - certs
+      - certs
     command: worker
     environment:
       CONCOURSE_TSA_HOST: web
