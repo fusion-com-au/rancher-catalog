@@ -2,7 +2,7 @@ version: "2"
 services:
 
   concourse-certs:
-    image: airtonix/concourse-certs
+    image: airtonix/concourse-certs:latest
     command: cat
     stdin_open: true
 
