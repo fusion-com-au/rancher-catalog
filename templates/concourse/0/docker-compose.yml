@@ -24,11 +24,11 @@ services:
       -  "8080"
     volumes_from: [concourse-certs]
     labels:
-      io.rancher.sidekicks: concourse-certs,concourse-worker
+      io.rancher.sidekicks: concourse-certs, concourse-worker
     environment:
       CONCOURSE_SESSION_SIGNING_KEY: /concourse-certs/web/session_signing_key
       CONCOURSE_TSA_HOST_KEY: /concourse-certs/web/tsa_host_key
-      CONCOURSE_TSA_AUTHORIZED_KEYS: /concourse-certs/web/tsa-authorized-keys
+      CONCOURSE_TSA_AUTHORIZED_KEYS: /concourse-certs/web/tsa_authorized_keys
       CONCOURSE_BASIC_AUTH_USERNAME: ${CONCOURSE_BASICAUTH_ADMIN_USERNAME}
       CONCOURSE_BASIC_AUTH_PASSWORD: ${CONCOURSE_BASICAUTH_ADMIN_PASSWORD}
       CONCOURSE_EXTERNAL_URL: "${CONCOURSE_EXTERNAL_URL}"
