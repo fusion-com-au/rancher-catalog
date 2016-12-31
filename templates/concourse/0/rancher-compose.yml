@@ -26,18 +26,17 @@ catalog:
   upgrade_from: # The previous versions that this template can be upgraded from
   questions:
 
-  - variable: CONCOURSE_SSH_PORT
-    label: external ssh port
-    description: For external workers connecting
-    default: "2222"
-    required: false
+  - variable: CONCOURSE_EXTERNAL_URL
+    label: concourse external hostname
+    description: hostname of the concourse instance as seen by fly clients and remote workers
+    required: true
     type: string
 
-  - variable: CONCOURSE_STORAGE_PATH
-    label: Storage path on host
-    description: For external workers connecting
+  - variable: CONCOURSE_SSH_PORT
+    label: external ssh port
+    description: For external workers connecting via ssh
     default: "2222"
-    required: false
+    required: true
     type: string
 
   - variable: CONCOURSE_BASICAUTH_ADMIN_USERNAME
@@ -52,8 +51,14 @@ catalog:
     required: true
     type: string
 
-  - variable: CONCOURSE_EXTERNAL_URL
-    label: concourse external hostname
-    description: hostname of the concourse instance as seen by fly clients and remote workers
+  - variable: CONCOURSE_DB_USERNAME
+    label: database username
+    default: concourse
+    required: true
+    type: string
+
+  - variable: CONCOURSE_DB_PASSWORD
+    label: database password
+    default: concourse
     required: true
     type: string

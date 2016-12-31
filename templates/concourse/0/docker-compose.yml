@@ -1,14 +1,16 @@
 version: '2'
 services:
+
   certs:
     image: registry.thelma.lan/concourse-certs:latest
+    command: /bin/true
 
   db:
     image: postgres:9.5
     environment:
       POSTGRES_DB: concourse
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: {{CONCOURSE_DB_USERNAME}}
+      POSTGRES_PASSWORD: {{CONCOURSE_DB_PASSWORD}}
       PGDATA: /database
 
   web:
@@ -31,7 +33,7 @@ services:
       CONCOURSE_BASIC_AUTH_PASSWORD: {{CONCOURSE_BASICAUTH_ADMIN_PASSWORD}}
       CONCOURSE_EXTERNAL_URL: "{{CONCOURSE_EXTERNAL_URL}}"
       CONCOURSE_POSTGRES_DATA_SOURCE: |-
-        postgres://admin:password@db:5432/concourse?sslmode=disable
+        postgres://{{CONCOURSE_DB_USERNAME}}:{{CONCOURSE_DB_PASSWORD}}@db:5432/concourse?sslmode=disable
 
   worker:
     image: concourse/concourse
