@@ -1,9 +1,10 @@
 .catalog:
-  name: "Concourse" # Name of the versioned template of the Catalog Entry
-  version: "v0.0.1" # Version of the versioned template of the Catalog Entry
-  description: "Continous integration and delivery orchestrator"
-  uuid: 'concourse-airtonix-0'
-  minimum_rancher_version: 'v0.51.0'
+  name: "Concourse"
+  version: 0.0.1
+  description: |
+    Continous integration and delivery orchestrator
+  uuid: concourse-airtonix-0
+  minimum_rancher_version: v0.51.0
   questions:
 
     - variable: 'CONCOURSE_EXTERNAL_URL'
@@ -47,17 +48,6 @@ db:
   scale: 1
 web:
   scale: 1
-  start_on_create: true
-  health_check:
-    healthy_threshold: 2
-    response_timeout: 2000
-    port: 8080
-    unhealthy_threshold: 3
-    initializing_timeout: 60000
-    interval: 2000
-    strategy: none
-    request_line: GET "/" "HTTP/1.0"
-    reinitializing_timeout: 60000
 certs:
   scale: 1
 worker:

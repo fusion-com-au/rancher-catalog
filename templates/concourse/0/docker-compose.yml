@@ -1,7 +1,10 @@
 version: "2"
 services:
+
   certs:
     image: airtonix/concourse-certs
+    command: cat
+    stdin_open: true
 
   db:
     image: postgres:9.5
@@ -23,6 +26,8 @@ services:
       -  "8080"
     volumes_from:
       - certs
+    labels:
+      io.rancher.sidekicks: certs
     environment:
       CONCOURSE_SESSION_SIGNING_KEY: /concourse-certs/web/session_signing_key
       CONCOURSE_TSA_HOST_KEY: /concourse-certs/web/tsa_host_key
@@ -40,6 +45,8 @@ services:
       - web
     volumes_from:
       - certs
+    labels:
+      io.rancher.sidekicks: certs
     command: worker
     environment:
       CONCOURSE_TSA_HOST: web
