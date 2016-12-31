@@ -1,47 +1,47 @@
 .catalog:
-  name: Concourse # Name of the versioned template of the Catalog Entry
-  version: 'v0.0.1' # Version of the versioned template of the Catalog Entry
-  description: 'Continous integration and delivery orchestrator'
+  name: "Concourse" # Name of the versioned template of the Catalog Entry
+  version: "v0.0.1" # Version of the versioned template of the Catalog Entry
+  description: "Continous integration and delivery orchestrator"
   uuid: concourse-airtonix-0
   minimum_rancher_version: v0.51.0
   questions:
 
-  - variable: 'CONCOURSE_EXTERNAL_URL'
-    label: 'concourse external hostname'
-    description: 'hostname of the concourse instance as seen by fly clients and remote workers'
-    required: true
-    type: 'string'
+    - variable: 'CONCOURSE_EXTERNAL_URL'
+      label: 'concourse external hostname'
+      description: 'hostname of the concourse instance as seen by fly clients and remote workers'
+      required: true
+      type: 'string'
 
-  - variable: 'CONCOURSE_SSH_PORT'
-    label: 'external ssh port'
-    description: 'For external workers connecting via ssh'
-    default: '2222'
-    required: true
-    type: 'string'
+    - variable: 'CONCOURSE_SSH_PORT'
+      label: 'external ssh port'
+      description: 'For external workers connecting via ssh'
+      default: '2222'
+      required: true
+      type: 'string'
 
-  - variable: 'CONCOURSE_BASICAUTH_ADMIN_USERNAME'
-    label: 'admin username'
-    default: 'admin'
-    required: true
-    type: 'string'
+    - variable: 'CONCOURSE_BASICAUTH_ADMIN_USERNAME'
+      label: 'admin username'
+      default: 'admin'
+      required: true
+      type: 'string'
 
-  - variable: 'CONCOURSE_BASICAUTH_ADMIN_PASSWORD'
-    label: 'admin password'
-    default: 'admin'
-    required: true
-    type: 'string'
+    - variable: 'CONCOURSE_BASICAUTH_ADMIN_PASSWORD'
+      label: 'admin password'
+      default: 'admin'
+      required: true
+      type: 'string'
 
-  - variable: 'CONCOURSE_DB_USERNAME'
-    label: 'database username'
-    default: 'concourse'
-    required: true
-    type: 'string'
+    - variable: 'CONCOURSE_DB_USERNAME'
+      label: 'database username'
+      default: 'concourse'
+      required: true
+      type: 'string'
 
-  - variable: 'CONCOURSE_DB_PASSWORD'
-    label: 'database password'
-    default: 'concourse'
-    required: true
-    type: 'string'
+    - variable: 'CONCOURSE_DB_PASSWORD'
+      label: 'database password'
+      default: 'concourse'
+      required: true
+      type: 'string'
 
 db:
   scale: 1
@@ -58,5 +58,7 @@ web:
     strategy: none
     request_line: GET "/" "HTTP/1.0"
     reinitializing_timeout: 60000
+certs:
+  scale: 1
 worker:
   scale: 1
