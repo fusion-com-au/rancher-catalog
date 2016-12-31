@@ -1,12 +1,12 @@
 version: "2"
 services:
 
-  certs:
+  concourse-certs:
     image: airtonix/concourse-certs
     command: cat
     stdin_open: true
 
-  db:
+  concourse-db:
     image: postgres:9.5
     environment:
       POSTGRES_DB: concourse
@@ -14,20 +14,20 @@ services:
       POSTGRES_PASSWORD: ${CONCOURSE_DB_PASSWORD}
       PGDATA: /database
 
-  web:
+  concourse-tsa:
     image: concourse/concourse
     command: web
     links:
-      - db
+      - concourse-db
     ports:
       - "${CONCOURSE_SSH_PORT}:2222"
     expose:
       -  "2222"
       -  "8080"
     volumes_from:
-      - certs
+      - concourse-certs
     labels:
-      io.rancher.sidekicks: certs
+      io.rancher.sidekicks: concourse-certs
     environment:
       CONCOURSE_SESSION_SIGNING_KEY: /concourse-certs/web/session_signing_key
       CONCOURSE_TSA_HOST_KEY: /concourse-certs/web/tsa_host_key
@@ -36,19 +36,19 @@ services:
       CONCOURSE_BASIC_AUTH_PASSWORD: ${CONCOURSE_BASICAUTH_ADMIN_PASSWORD}
       CONCOURSE_EXTERNAL_URL: "${CONCOURSE_EXTERNAL_URL}"
       CONCOURSE_POSTGRES_DATA_SOURCE: |-
-        postgres://${CONCOURSE_DB_USERNAME}:${CONCOURSE_DB_PASSWORD}@db:5432/concourse?sslmode=disable
+        postgres://${CONCOURSE_DB_USERNAME}:${CONCOURSE_DB_PASSWORD}@concourse-db:5432/concourse?sslmode=disable
 
-  worker:
+  concourse-worker:
     image: concourse/concourse
     privileged: true
     links:
-      - web
+      - concourse-tsa
     volumes_from:
-      - certs
+      - concourse-certs
     labels:
-      io.rancher.sidekicks: certs
+      io.rancher.sidekicks: concourse-certs
     command: worker
     environment:
-      CONCOURSE_TSA_HOST: web
+      CONCOURSE_TSA_HOST: concourse-tsa
       CONCOURSE_TSA_PUBLIC_KEY: /concourse-certs/worker/tsa_host_key.pub
       CONCOURSE_WORKER_PRIVATE_KEY: /concourse-certs/worker/worker_key

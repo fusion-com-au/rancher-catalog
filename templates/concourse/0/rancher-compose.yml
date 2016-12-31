@@ -44,11 +44,11 @@
       required: true
       type: 'string'
 
-db:
+concourse-certs:
   scale: 1
-web:
+concourse-db:
   scale: 1
-certs:
+concourse-tsa:
   scale: 1
-worker:
+concourse-worker:
   scale: 1
