@@ -1,5 +1,5 @@
 certs:
-  image: registry.thelma.lan/concourse-certs:latest
+  image: airtonix/concourse-certs:latest
   command: /bin/true
 
 db:
