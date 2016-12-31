@@ -1,22 +1,20 @@
-version: '2'
-services:
-  db:
-    scale: 1
-  web:
-    scale: 1
-    start_on_create: true
-    health_check:
-      healthy_threshold: 2
-      response_timeout: 2000
-      port: 8080
-      unhealthy_threshold: 3
-      initializing_timeout: 60000
-      interval: 2000
-      strategy: none
-      request_line: GET "/" "HTTP/1.0"
-      reinitializing_timeout: 60000
-  worker:
-    scale: 1
+db:
+  scale: 1
+web:
+  scale: 1
+  start_on_create: true
+  health_check:
+    healthy_threshold: 2
+    response_timeout: 2000
+    port: 8080
+    unhealthy_threshold: 3
+    initializing_timeout: 60000
+    interval: 2000
+    strategy: none
+    request_line: GET "/" "HTTP/1.0"
+    reinitializing_timeout: 60000
+worker:
+  scale: 1
 
 .catalog:
   name: Concourse # Name of the versioned template of the Catalog Entry
