@@ -13,12 +13,6 @@
       required: true
       type: 'string'
 
-    - variable: 'CONCOURSE_STORAGE_PATH'
-      label: 'absolute path on rancher host where concours storage is held'
-      description: 'For now this just contains keys shared between workers and the tsa.'
-      required: true
-      type: 'string'
-
     - variable: 'CONCOURSE_SSH_PORT'
       label: 'external ssh port'
       description: 'For external workers connecting via ssh'
