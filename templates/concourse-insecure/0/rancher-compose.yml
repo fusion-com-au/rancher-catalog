@@ -1,9 +1,9 @@
 .catalog:
   name: "Concourse"
-  version: 0.0.1c
+  version: 0.0.1
   description: |
     Continous integration and delivery orchestrator
-  uuid: concourse-airtonix-0
+  uuid: concourse-insecure-airtonix-1
   minimum_rancher_version: v0.51.0
   questions:
 
