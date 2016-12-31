@@ -12,7 +12,7 @@ mkdir -p $CERT_ROOT/worker
 
 [[ ! -f $CERT_ROOT/worker/worker_key ]] && \
 	ssh-keygen -t rsa -f $CERT_ROOT/worker/worker_key -N ''
-	cp $CERT_ROOT/worker/worker_key.pub
+	cp $CERT_ROOT/worker/worker_key.pub \
 		$CERT_ROOT/web/tsa-authorized-keys
 
 exec "${@}"
