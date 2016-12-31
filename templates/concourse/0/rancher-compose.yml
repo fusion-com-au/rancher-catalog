@@ -17,7 +17,8 @@ services:
       reinitializing_timeout: 60000
   worker:
     scale: 1
-catalog:
+
+.catalog:
   name: # Name of the versioned template of the Catalog Entry
   version: # Version of the versioned template of the Catalog Entry
   description: # Description of the versioned template of the Catalog Entry
@@ -26,18 +27,18 @@ catalog:
   upgrade_from: # The previous versions that this template can be upgraded from
   questions:
 
-  - variable: CONCOURSE_EXTERNAL_URL
-    label: concourse external hostname
-    description: hostname of the concourse instance as seen by fly clients and remote workers
+  - variable: 'CONCOURSE_EXTERNAL_URL'
+    label: 'concourse external hostname'
+    description: 'hostname of the concourse instance as seen by fly clients and remote workers'
     required: true
-    type: string
+    type: 'string'
 
-  - variable: CONCOURSE_SSH_PORT
-    label: external ssh port
-    description: For external workers connecting via ssh
-    default: "2222"
+  - variable: 'CONCOURSE_SSH_PORT'
+    label: 'external ssh port'
+    description: 'For external workers connecting via ssh'
+    default: '2222'
     required: true
-    type: string
+    type: 'string'
 
   - variable: CONCOURSE_BASICAUTH_ADMIN_USERNAME
     label: admin username

@@ -1,7 +1,8 @@
 name: Concourse
-description:
+description: |
+  Container based continous integration and delivery
 version: 0.0.1
-category: CI
-maintainer: Zenobius Jiricek <airtonix@gmail.com>
+category: Continous Integration
+maintainer: Zenobius Jiricek
 license: MIT
-projectURL: github.com/airtonix/rancher-catalog
+projectURL: https://github.com/airtonix/rancher-catalog # A URL related to the catalog entry
