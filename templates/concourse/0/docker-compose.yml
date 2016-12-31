@@ -17,17 +17,14 @@ services:
   concourse-tsa:
     image: concourse/concourse
     command: web
-    links:
-      - concourse-db
     ports:
       - "${CONCOURSE_SSH_PORT}:2222"
     expose:
       -  "2222"
       -  "8080"
-    volumes_from:
-      - concourse-certs
+    volumes_from: [concourse-certs]
     labels:
-      io.rancher.sidekicks: concourse-certs
+      io.rancher.sidekicks: concourse-certs,concourse-worker
     environment:
       CONCOURSE_SESSION_SIGNING_KEY: /concourse-certs/web/session_signing_key
       CONCOURSE_TSA_HOST_KEY: /concourse-certs/web/tsa_host_key
@@ -40,10 +37,7 @@ services:
   concourse-worker:
     image: concourse/concourse
     privileged: true
-    links:
-      - concourse-tsa
-    volumes_from:
-      - concourse-certs
+    volumes_from: [concourse-certs]
     command: worker
     environment:
       CONCOURSE_TSA_HOST: concourse-tsa
