@@ -33,3 +33,5 @@ services:
     command: worker
     volumes:
       - "${CONCOURSE_STORAGE_PATH}/keys/worker:/concourse-keys"
+    environment:
+      CONCOURSE_TSA_HOST: tsa
