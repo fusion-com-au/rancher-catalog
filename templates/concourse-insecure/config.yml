@@ -1,7 +1,0 @@
-name: Concourse (Insecure)
-description: Container based continous integration and delivery.
-version: 0.0.1
-category: Continous Integration
-maintainer: Zenobius Jiricek
-license: MIT
-projectURL: https://github.com/airtonix/rancher-catalog # A URL related to the catalog entry
