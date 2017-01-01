@@ -6,9 +6,15 @@ catalog:
   minimum_rancher_version: v0.51.0
   questions:
 
-    - variable: 'CONCOURSE_EXTERNAL_URL'
-      label: 'concourse external hostname'
-      description: 'hostname of the concourse instance as seen by fly clients and remote workers'
+    - variable: 'CONCOURSE_SUBDOMAIN'
+      label: 'subdomain which concourse lives on'
+      description: 'makes up the subdomain part of the external concourse url as seen by fly clients and remote workers'
+      required: true
+      type: 'string'
+
+    - variable: 'CONCOURSE_PARENT_DOMAIN'
+      label: 'subdomain which concourse lives on'
+      description: 'makes up the domain part of the external concourse url as seen by fly clients and remote workers'
       required: true
       type: 'string'
 
