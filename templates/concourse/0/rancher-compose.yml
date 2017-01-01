@@ -41,7 +41,7 @@ catalog:
       label: 'admin password'
       default: 'admin'
       required: true
-      type: 'string'
+      type: 'password'
 
     - variable: 'CONCOURSE_DB_USERNAME'
       label: 'database username'
@@ -53,7 +53,7 @@ catalog:
       label: 'database password'
       default: 'concourse'
       required: true
-      type: 'string'
+      type: 'password'
 
 concourse-certs:
   scale: 1
