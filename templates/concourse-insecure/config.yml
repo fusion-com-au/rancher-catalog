@@ -1,11 +1,5 @@
 name: Concourse (Insecure)
-description: |
-  Container based continous integration and delivery.
-
-  **Testing Only**
-  Only use this template for testing, since it uses a container that
-  generates worker and tsa keys which are shared to both tsa and workers.
-
+description: Container based continous integration and delivery.
 version: 0.0.1
 category: Continous Integration
 maintainer: Zenobius Jiricek

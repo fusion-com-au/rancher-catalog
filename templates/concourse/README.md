@@ -9,7 +9,7 @@ Configuration as code pipeline driven continous integration and delivery server.
 You need to run the following two scripts in the same path you'll provide in the questions below.
 
 
-```bash
+```
 # ./generate-tsa-keys.sh
 
 cd /mnt/Data/Concourse
@@ -19,7 +19,7 @@ ssh-keygen -t rsa -f ./keys/tsa/tsa_host_key -N ''
 ssh-keygen -t rsa -f ./keys/tsa/session_signing_key -N ''
 ```
 
-```bash
+```
 # ./generate-worker-keys.sh
 
 WORKER_ID=[[ -n "${1}" ]] && "worker-${1}" || "worker-local"
@@ -29,7 +29,7 @@ cat ./keys/${WORKER_ID}/worker_key.pub  >> ./keys/tsa/authorized_worker_keys
 cp ./keys/tsa/tsa_host_key.pub ./keys/${WORKER_ID}
 ```
 
-```bash
+```
 
 $ ./generate-tsa-keys.sh
 $ ./generate-worker-keys.sh
@@ -38,7 +38,7 @@ $ ./generate-worker-keys.sh
 #### Adding more workers
 
 1. generate a new set of keys.
-```bash
+```
 $ ./generate-tsa-keys.sh windows-1
 ```
 
