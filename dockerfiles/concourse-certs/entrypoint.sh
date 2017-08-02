@@ -1,15 +1,9 @@
 #!/bin/sh
 
-mkdir -p $CERT_ROOT
+if [ !-n $MAKE_TSA_KEYS ]; then
+	./make-tsa-keys.sh $KEYS_STORAGE
+fi
 
-[[ ! -f $CERT_ROOT/tsa_host_key ]] && \
-	ssh-keygen -t rsa -f $CERT_ROOT/tsa_host_key -N ''
-
-[[ ! -f $CERT_ROOT/session_signing_key ]] && \
-	ssh-keygen -t rsa -f $CERT_ROOT/session_signing_key -N ''
-
-[[ ! -f $CERT_ROOT/worker_key ]] && \
-	ssh-keygen -t rsa -f $CERT_ROOT/worker_key -N ''
-	cat $CERT_ROOT/worker_key.pub > $CERT_ROOT/authorized_worker_keys
-
-exec "${@}"
+if [ !-n $MAKE_WORKER_KEYS ]; then
+	./make-worker-keys.sh $KEYS_STORAGE
+fi
