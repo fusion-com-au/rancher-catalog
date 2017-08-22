@@ -6,21 +6,10 @@ catalog:
   minimum_rancher_version: v0.51.0
   questions:
 
-    - variable: 'CONCOURSE_SUBDOMAIN'
-      label: 'subdomain which concourse lives on'
-      description: 'makes up the subdomain part of the external concourse url as seen by fly clients and remote workers'
-      required: true
-      type: 'string'
-
-    - variable: 'CONCOURSE_PARENT_DOMAIN'
-      label: 'parent domain which concourse lives on'
-      description: 'makes up the domain part of the external concourse url as seen by fly clients and remote workers'
-      required: true
-      type: 'string'
-
-    - variable: 'CONCOURSE_STORAGE_PATH'
-      label: 'absolute path on rancher host where concours storage is held'
-      description: 'For now this just contains keys shared between workers and the tsa.'
+    - variable: 'CONCOURSE_DOMAIN'
+      default: 'ci'
+      label: 'domain which concourse lives on'
+      description: 'makes up the FQDN of the concourse ATC as seen by fly clients and remote workers'
       required: true
       type: 'string'
 

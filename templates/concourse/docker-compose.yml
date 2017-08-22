@@ -27,11 +27,14 @@ services:
     networks:
       - back
     environment:
-      POSTGRES_USER: ${CONCOURSE_DB_USERNAME}
-      POSTGRES_PASSWORD: ${CONCOURSE_DB_PASSWORD}
+      POSTGRES_DB: concourse
+      POSTGRES_USER: concourse
+      POSTGRES_PASSWORD: concourse
       PGDATA: /database
 
   tsa:
+    container_name: concourse
+    hostname: concourse
     image: concourse/concourse
     restart: unless-stopped
     command: web
@@ -39,18 +42,18 @@ services:
       - reverse-proxy
       - back
     ports:
-      - "${CONCOURSE_SSH_PORT}:2222"
+      - "2222:2222"
     expose:
       - 2222
       - 8080
     volumes:
       - keys:/concourse-keys
     environment:
-      CONCOURSE_BASIC_AUTH_USERNAME: ${CONCOURSE_BASICAUTH_ADMIN_USERNAME}
-      CONCOURSE_BASIC_AUTH_PASSWORD: ${CONCOURSE_BASICAUTH_ADMIN_PASSWORD}
-      CONCOURSE_EXTERNAL_URL: ${CONCOURSE_DOMAIN}
-      CONCOURSE_POSTGRES_DATA_SOURCE: postgres://${CONCOURSE_DB_USERNAME}:${CONCOURSE_DB_PASSWORD}@db:5432/concourse?sslmode=disable
-      VIRTUAL_HOST: ${VIRTUAL_HOST}
+      CONCOURSE_BASIC_AUTH_USERNAME: concourse
+      CONCOURSE_BASIC_AUTH_PASSWORD: concourse
+      CONCOURSE_EXTERNAL_URL: ci.docker
+      CONCOURSE_POSTGRES_DATA_SOURCE: postgres://concourse:concourse@db:5432/concourse?sslmode=disable
+      VIRTUAL_HOST: ci.docker
       VIRTUAL_PORT: 8080
 
   worker:
@@ -60,19 +63,6 @@ services:
     command: worker
     networks:
       - back
-    volumes:
-      - keys:/concourse-keys
-    environment:
-      CONCOURSE_TSA_HOST: tsa
-
-    environment:
-      VIRTUAL_HOST: ${CONCOURSE_DOMAIN}
-      VIRTUAL_PORT: 8080
-
-  worker:
-    image: concourse/concourse
-    privileged: true
-    command: worker
     volumes:
       - keys:/concourse-keys
     environment:
