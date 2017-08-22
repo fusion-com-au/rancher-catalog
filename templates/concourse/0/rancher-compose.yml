@@ -6,8 +6,15 @@ catalog:
   minimum_rancher_version: v0.51.0
   questions:
 
-    - variable: 'CONCOURSE_DOMAIN'
+    - variable: 'CONCOURSE_SUBDOMAIN'
       default: 'ci'
+      label: 'subdomain which concourse lives on'
+      description: 'makes up the FQDN of the concourse ATC as seen by fly clients and remote workers'
+      required: true
+      type: 'string'
+
+    - variable: 'CONCOURSE_DOMAIN'
+      default: 'docker'
       label: 'domain which concourse lives on'
       description: 'makes up the FQDN of the concourse ATC as seen by fly clients and remote workers'
       required: true
