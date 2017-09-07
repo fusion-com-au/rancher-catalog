@@ -1,12 +1,5 @@
 version: "2"
 
-networks:
-  reverse-proxy:
-    external:
-      name: reverse-proxy
-  back:
-    driver: bridge
-
 volumes:
   keys:
 

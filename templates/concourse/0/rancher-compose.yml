@@ -1,8 +1,8 @@
 version: "2"
 catalog:
   name: "Concourse"
-  version: 0.0.2
-  uuid: concourse-airtonix-2
+  version: 0.0.3
+  uuid: concourse-airtonix-3
   minimum_rancher_version: v0.51.0
   questions:
 
