@@ -3,7 +3,7 @@ catalog:
   name: "Concourse"
   version: 0.0.3
   uuid: concourse-airtonix-3
-  minimum_rancher_version: v1.6.8
+  minimum_rancher_version: v1.6.0
   questions:
 
     - variable: 'CONCOURSE_SUBDOMAIN'
