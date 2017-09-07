@@ -1,68 +1,45 @@
-version: "2"
+keys:
+  image: airtonix/concourse-certs-generator:0.0.4
+  tty: true
+  stdin_open: true
+  command: cat
+  volumes:
+    - keys:/concourse-keys
 
-volumes:
-  keys:
+db:
+  hostname: concourse-db
+  image: postgres:9.5
+  restart: unless-stopped
+  environment:
+    POSTGRES_USER: ${CONCOURSE_DB_USERNAME}
+    POSTGRES_PASSWORD: ${CONCOURSE_DB_PASSWORD}
+    PGDATA: /database
 
-services:
+tsa:
+  image: concourse/concourse
+  restart: unless-stopped
+  command: web
+  ports:
+    - "${CONCOURSE_SSH_PORT}:2222"
+  expose:
+    - 2222
+    - 8080
+  volumes:
+    - keys:/concourse-keys
+  environment:
+    CONCOURSE_BASIC_AUTH_USERNAME: ${CONCOURSE_BASICAUTH_ADMIN_USERNAME}
+    CONCOURSE_BASIC_AUTH_PASSWORD: ${CONCOURSE_BASICAUTH_ADMIN_PASSWORD}
+    CONCOURSE_EXTERNAL_URL: ${CONCOURSE_SUBDOMAIN}.${CONCOURSE_DOMAIN}
+    CONCOURSE_POSTGRES_DATA_SOURCE: postgres://${CONCOURSE_DB_USERNAME}:${CONCOURSE_DB_PASSWORD}@db:5432/concourse?sslmode=disable
+    VIRTUAL_HOST: ${CONCOURSE_SUBDOMAIN}
+    VIRTUAL_PORT: 8080
 
-  keys:
-    image: airtonix/concourse-certs-generator:0.0.4
-    tty: true
-    stdin_open: true
-    command: cat
-    volumes:
-      - keys:/concourse-keys
-
-  db:
-    hostname: concourse-db
-    image: postgres:9.5
-    restart: unless-stopped
-    networks:
-      - back
-    environment:
-      POSTGRES_USER: ${CONCOURSE_DB_USERNAME}
-      POSTGRES_PASSWORD: ${CONCOURSE_DB_PASSWORD}
-      PGDATA: /database
-
-  tsa:
-    image: concourse/concourse
-    restart: unless-stopped
-    command: web
-    networks:
-      - reverse-proxy
-      - back
-    ports:
-      - "${CONCOURSE_SSH_PORT}:2222"
-    expose:
-      - 2222
-      - 8080
-    volumes:
-      - keys:/concourse-keys
-    environment:
-      CONCOURSE_BASIC_AUTH_USERNAME: ${CONCOURSE_BASICAUTH_ADMIN_USERNAME}
-      CONCOURSE_BASIC_AUTH_PASSWORD: ${CONCOURSE_BASICAUTH_ADMIN_PASSWORD}
-      CONCOURSE_EXTERNAL_URL: ${CONCOURSE_SUBDOMAIN}.${CONCOURSE_DOMAIN}
-      CONCOURSE_POSTGRES_DATA_SOURCE: postgres://${CONCOURSE_DB_USERNAME}:${CONCOURSE_DB_PASSWORD}@db:5432/concourse?sslmode=disable
-      VIRTUAL_HOST: ${CONCOURSE_SUBDOMAIN}
-      VIRTUAL_PORT: 8080
-
-  worker:
-    image: concourse/concourse
-    privileged: true
-    restart: unless-stopped
-    command: worker
-    networks:
-      - back
-    volumes:
-      - keys:/concourse-keys
-    environment:
-      CONCOURSE_TSA_HOST: tsa
-
-  worker:
-    image: concourse/concourse
-    privileged: true
-    command: worker
-    volumes:
-      - keys:/concourse-keys
-    environment:
-      CONCOURSE_TSA_HOST: tsa
+worker:
+  image: concourse/concourse
+  privileged: true
+  restart: unless-stopped
+  command: worker
+  volumes:
+    - keys:/concourse-keys
+  environment:
+    CONCOURSE_TSA_HOST: tsa
