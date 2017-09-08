@@ -6,6 +6,13 @@ catalog:
   minimum_rancher_version: v1.6.0
   questions:
 
+    - variable: 'HOST_STORAGE_ROOT'
+      default: '/mnt/storage/concourse'
+      label: 'host storage path'
+      description: 'path on host where concourse storage persists'
+      required: true
+      type: 'string'
+
     - variable: 'CONCOURSE_SUBDOMAIN'
       default: 'ci'
       label: 'subdomain which concourse lives on'
