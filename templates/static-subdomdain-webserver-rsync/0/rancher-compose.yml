@@ -1,0 +1,33 @@
+.catalog:
+  name: # Name of the versioned template of the Catalog Entry
+  version: # Version of the versioned template of the Catalog Entry
+  description: # Description of the versioned template of the Catalog Entry
+  uuid: # Unique identifier to be used for upgrades. Please see note.
+  minimum_rancher_version: # The minimum version of Rancher that supports the template
+  questions: #Used to request user input for configuration options
+    - variable: nginx_config
+      label: Nginx configuration
+      default: |
+        server {
+          listen            80;
+          server_name       static.fusion.one;
+          root              /var/www/sites/;
+          location / {
+              autoindex     on;
+          }
+          rewrite           ^(/\w+)\/.*$ $scheme://$1.static.fusion.one permanent;
+          access_log        /var/www/root/logs/access.log;
+          error_log         /var/www/root/logs/errors.log;
+        }
+
+        server {
+          listen            80;
+          # regex capture assigning the subdomain to $subdomain
+          server_name       ~^(?<domain>.+)\.static\.rancher\.fusion\.one$;
+          if (!-d /var/www/sites/$domain/www/) {
+              rewrite       . static.rancher.fusion.one redirect;
+          }
+          location / {
+              root           /var/www/sites/$domain/www/;
+          }
+        }

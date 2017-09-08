@@ -1,0 +1,14 @@
+version: "2"
+services:
+
+  web:
+    image: nginx:alpine
+    volumes:
+      - "/mnt/Services/static-hosting/nginx.conf:/etc/nginx/conf.d/default.conf"
+      - "/mnt/Services/static-hosting/www:/var/www/"
+
+  sshd:
+    image: sickp/alpine-sshd:7.5
+    volumes:
+      - "/mnt/Services/static-hosting/www:/var/www/"
+      - "/mnt/Services/static-hosting/id_rsa.fusion.static-hosting.pub:/root/.ssh/authorized_keys"[rancher@rancher static-hosting]$

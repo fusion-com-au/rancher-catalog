@@ -1,8 +1,5 @@
 version: "2"
 
-volumes:
-  keys:
-
 services:
 
   keys:
@@ -11,7 +8,7 @@ services:
     stdin_open: true
     command: cat
     volumes:
-      - keys:/concourse-keys
+      - /mnt/storage/concourse/keys:/concourse-keys
 
   db:
     hostname: concourse-db
@@ -21,6 +18,8 @@ services:
       POSTGRES_USER: ${CONCOURSE_DB_USERNAME}
       POSTGRES_PASSWORD: ${CONCOURSE_DB_PASSWORD}
       PGDATA: /database
+    volumes:
+      - /mnt/storage/concourse/db:/database
 
   tsa:
     image: concourse/concourse
@@ -32,7 +31,7 @@ services:
       - 2222
       - 8080
     volumes:
-      - keys:/concourse-keys
+      - /mnt/storage/concourse/keys:/concourse-keys
     environment:
       CONCOURSE_BASIC_AUTH_USERNAME: ${CONCOURSE_BASICAUTH_ADMIN_USERNAME}
       CONCOURSE_BASIC_AUTH_PASSWORD: ${CONCOURSE_BASICAUTH_ADMIN_PASSWORD}
@@ -47,6 +46,6 @@ services:
     restart: unless-stopped
     command: worker
     volumes:
-      - keys:/concourse-keys
+      - /mnt/storage/concourse/keys:/concourse-keys
     environment:
       CONCOURSE_TSA_HOST: tsa
