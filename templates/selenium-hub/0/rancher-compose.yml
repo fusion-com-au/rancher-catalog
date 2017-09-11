@@ -1,0 +1,19 @@
+.catalog:
+  name: "Selenium Hub"
+  version: 'v0.0.1'
+  description: 'Hub server'
+  uuid: 'selenium-hub-0'
+  minimum_rancher_version: v0.51.0
+  questions:
+    - variable: GRID_TIMEOUT
+      description: "GRID_TIMEOUT"
+      label: "GRID_TIMEOUT"
+      required: false
+      type: "int"
+      default: 10000
+    - variable: PORT
+      description: "PORT"
+      label: "PORT"
+      required: false
+      type: "int"
+      default: 10000

@@ -1,0 +1,6 @@
+name: Selenium Node Firefox
+description: |
+  Remote firefox selenium runner
+version: v0.0.1
+category: End to End Automated Testing
+maintainer: Zenobius Jiricek <zeno.jiricek@fusion.com.au>

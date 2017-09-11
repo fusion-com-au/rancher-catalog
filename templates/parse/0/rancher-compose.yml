@@ -1,0 +1,78 @@
+.catalog:
+  name: "Parse"
+  version: "v0.0.1"
+  description: "Backend as a Service"
+  uuid: parse-0
+  minimum_rancher_version: v0.51.0
+  questions:
+    - variable: APP_ID
+      description: "APP_ID"
+      label: "APP_ID"
+      required: true
+      type: "str"
+    - variable: APP_NAME
+      description: "APP_NAME"
+      label: "APP_NAME"
+      required: true
+      type: "str"
+    - variable: MASTER_KEY
+      description: "MASTER_KEY"
+      label: "MASTER_KEY"
+      required: true
+      type: "str"
+    - variable: ALLOW_CLIENT_CLASS_CREATION
+      description: "ALLOW_CLIENT_CLASS_CREATION"
+      label: "ALLOW_CLIENT_CLASS_CREATION"
+      required: true
+      type: "bool"
+    - variable: DATABASE_URI
+      description: "DATABASE_URI"
+      label: "DATABASE_URI"
+      required: true
+      type: "str"
+      default: "mongodb://database"
+    - variable: PORT
+      description: "PORT"
+      label: "PORT"
+      required: true
+      default: 5000
+      type: "int"
+    - variable: DASHBOARD_PORT
+      description: "DASHBOARD_PORT"
+      label: "DASHBOARD_PORT"
+      required: true
+      default: 5040
+      type: "int"
+    - variable: USER1
+      description: "USER1"
+      label: "USER1"
+      required: true
+      default: 'admin'
+      type: "string"
+    - variable: USER1_PASSWORD
+      description: "USER1_PASSWORD"
+      label: "USER1_PASSWORD"
+      required: true
+      default: 'admin'
+      type: "string"
+    - variable: PARSE_DASHBOARD_ALLOW_INSECURE_HTTP
+      description: "PARSE_DASHBOARD_ALLOW_INSECURE_HTTP"
+      label: "PARSE_DASHBOARD_ALLOW_INSECURE_HTTP"
+      required: true
+      default: true
+      type: "bool"
+    - variable: SERVER_URL
+      description: "SERVER_URL"
+      label: "SERVER_URL"
+      required: true
+      default: 'http://localhost:5000/parse'
+      type: "string"
+
+server:
+  health_check:
+    port: 1000
+    interval: 2000
+    unhealthy_threshold: 3
+    request_line: GET / HTTP/1.0
+    healthy_threshold: 2
+    response_timeout: 2000

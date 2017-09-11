@@ -1,0 +1,4 @@
+node:
+    image: selenium/node-firefox
+    links:
+      - ${HUB_LINK}:hub

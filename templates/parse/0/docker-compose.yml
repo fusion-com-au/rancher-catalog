@@ -1,0 +1,55 @@
+database:
+  image: mongo
+  ports:
+    - "27017"
+  command: "--smallfiles --logpath=/dev/null --setParameter failIndexKeyTooLong=false"
+
+databaseStore:
+  image: mongo
+  command: "--break-mongo"
+  volumes:
+    - /data/db
+  labels:
+    io.rancher.sidekicks: database
+
+server:
+  image: yongjhih/parse-server
+  ports:
+    - "${PORT}:5000"
+    - "${SSH_PORT}:22"
+  environment:
+    PORT: ${PORT}
+    DATABASE_URI: ${DATABASE_URI}
+    APP_ID: ${APP_ID}
+    APP_NAME: ${APP_NAME}
+    MASTER_KEY: ${MASTER_KEY}
+    ALLOW_CLIENT_CLASS_CREATION: ${ALLOW_CLIENT_CLASS_CREATION}
+  links:
+    - database
+  volumes_from:
+    - serverStore
+
+serverStore:
+  image: yongjhih/parse-cloud-code
+  volumes:
+    - /parse/cloud
+  command: "ls /parse/cloud"
+  labels:
+    io.rancher.sidekicks: server
+
+dashboard:
+  image: yongjhih/parse-dashboard
+  links:
+    - server
+  environment:
+    PORT: ${DASHBOARD_PORT}
+    APP_ID: ${APP_ID}
+    MASTER_KEY: ${MASTER_KEY}
+    APP_NAME: ${APP_NAME}
+    PARSE_DASHBOARD_ALLOW_INSECURE_HTTP: ${PARSE_DASHBOARD_ALLOW_INSECURE_HTTP}
+    USER1: ${DASHBOARD_ADMIN_USERNAME}
+    USER1_PASSWORD: ${DASHBOARD_ADMIN_PASSWORD}
+    SERVER_URL: ${SERVER_URL}
+  ports:
+    - "${DASHBOARD_PORT}:5040"
+

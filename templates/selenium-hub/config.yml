@@ -1,0 +1,6 @@
+name: Selenium Hub
+description: |
+  Centralised management of remote selenium test runners
+version: v0.0.1
+category: End to End Automated Testing
+maintainer: Zenobius Jiricek <zeno.jiricek@fusion.com.au>

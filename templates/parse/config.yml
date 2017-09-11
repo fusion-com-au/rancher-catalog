@@ -1,0 +1,6 @@
+name: Parse Server
+description: |
+  Sets up a Parse stack for a specific AppId
+version: v0.0.1
+category: BaaS
+maintainer: Zenobius Jiricek <zeno.jiricek@fusion.com.au>

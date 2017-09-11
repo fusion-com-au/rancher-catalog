@@ -1,0 +1,4 @@
+node:
+    image: selenium/node-chrome
+    links:
+      - ${HUB_LINK}:hub

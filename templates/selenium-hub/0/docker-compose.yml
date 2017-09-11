@@ -1,0 +1,6 @@
+hub:
+  image: selenium/hub
+  ports:
+    - "${PORT}:4444"
+  environment:
+    GRID_TIMEOUT: ${GRID_TIMEOUT}

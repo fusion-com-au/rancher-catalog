@@ -1,0 +1,16 @@
+.catalog:
+  name: "Selenium Node Firefox"
+  version: 'v0.0.1'
+  description: 'remote selenium firefox runner '
+  uuid: 'selenium-node-firefox-0'
+  minimum_rancher_version: v0.51.0
+  questions:
+    - variable: HUB_LINK
+      description: "Container name of the Selenium Hub"
+      label: "container name"
+      type: 'string'
+      required: true
+      default: 'selenium-hub'
+
+node:
+  scale: 1
