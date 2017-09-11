@@ -1,6 +1,6 @@
-name: Parse Server
+name: Parse Server Without Mongo
 description: |
-  Sets up a Parse stack for a specific AppId
+  Sets up a Parse stack for a specific AppId using an external Mongo server
 version: v0.0.1
 category: BaaS
 maintainer: Zenobius Jiricek <zeno.jiricek@fusion.com.au>
